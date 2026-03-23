@@ -1,0 +1,6 @@
+pipeline:
+  name: PTE_IBM
+  identifier: PTE_IBM
+  projectIdentifier: VN
+  orgIdentifier: default
+  tags: {}
