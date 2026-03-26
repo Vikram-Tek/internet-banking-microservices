@@ -90,3 +90,22 @@ pipeline:
                           limits:
                             memory: 4Gi
                             cpu: 2000m
+            "":
+              type: BuildAndPushDockerRegistry
+              name: BuildAndPushDockerRegistry_1
+              identifier: BuildAndPushDockerRegistry_1
+              spec:
+                connectorRef: Vikram_Docker
+                repo: vikramtek/harness-ibm-cbs
+                tags:
+                  - <+codebase.branch>
+                  - <+codebase.commitSha>
+                  - <+pipeline.sequenceId>
+                caching: true
+                dockerfile: core-banking-service/Dockerfile
+  properties:
+    ci:
+      codebase:
+        connectorRef: VikramIBM
+        build: <+input>
+        sparseCheckout: []
