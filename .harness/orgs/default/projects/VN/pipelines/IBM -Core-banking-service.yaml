@@ -1,0 +1,58 @@
+pipeline:
+  name: IBM -Core-banking-service
+  identifier: IBM_Corebankingservice
+  projectIdentifier: VN
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: VikramIBM
+        build: <+input>
+  stages:
+    - stage:
+        name: Buils and scan
+        identifier: Buils_and_scan
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: VikramKube
+              namespace: ibm-pte
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Gradle Build
+                  identifier: Gradle_Build
+                  spec:
+                    connectorRef: Vikram_Docker
+                    image: eclipse-temurin:21.0.2_13-jdk-alpine
+                    shell: Sh
+                    command: |-
+                      set -e
+                      echo "================================"
+                      echo "STEP 1: Gradle Build"
+                      echo "================================"
+
+                      cd core-banking-service
+                      chmod +x gradlew
+                      ./gradlew clean build -x test
+
+                      echo "✓ Gradle build completed successfully"
+                      echo "JAR created at: build/libs/core-banking-service-0.0.1-SNAPSHOT.jar"
+                    resources:
+                      limits:
+                        memory: 2Gi
+                        cpu: 1000m
