@@ -56,3 +56,21 @@ pipeline:
                       limits:
                         memory: 2Gi
                         cpu: 1000m
+            "":
+              type: Semgrep
+              name: Semgrep_1
+              identifier: Semgrep_1
+              spec:
+                mode: orchestration
+                config: default
+                target:
+                  type: repository
+                  detection: auto
+                advanced:
+                  log:
+                    level: info
+                  fail_on_severity: high
+                resources:
+                  limits:
+                    memory: 1Gi
+                    cpu: 500m
