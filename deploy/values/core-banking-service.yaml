@@ -1,1 +1,23 @@
+namespace: pte
 
+image:
+  repository: vikramtek/core-banking-service
+  tag: latest
+
+replicaCount: 2
+containerPort: 8092
+servicePort: 8092
+
+app:
+  serviceName: core-banking-service
+  version: v1
+
+env:
+  SPRING_PROFILES_ACTIVE: pte
+  JAVA_OPTS: "-Xms256m -Xmx512m"
+
+istio:
+  enabled: true
+  gateway: banking-gateway
+  hosts:
+    - core-banking.local
