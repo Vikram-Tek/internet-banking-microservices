@@ -1,1 +1,23 @@
+namespace: ibm-pte
 
+image:
+  repository: vikramtek/internet-banking-user-service
+  tag: latest
+
+replicaCount: 2
+containerPort: 8083
+servicePort: 8083
+
+app:
+  serviceName: internet-banking-user-service
+  version: v1
+
+env:
+  SPRING_PROFILES_ACTIVE: pte
+  JAVA_OPTS: "-Xms256m -Xmx512m"
+
+istio:
+  enabled: true
+  gateway: banking-gateway
+  hosts:
+    - user-service.local
