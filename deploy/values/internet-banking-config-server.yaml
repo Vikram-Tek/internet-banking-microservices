@@ -1,1 +1,23 @@
+namespace: ibm-pte
 
+image:
+  repository: vikramtek/internet-banking-config-server
+  tag: latest
+
+replicaCount: 1
+containerPort: 8090
+servicePort: 8090
+
+app:
+  serviceName: internet-banking-config-server
+  version: v1
+
+env:
+  SPRING_PROFILES_ACTIVE: pte
+  JAVA_OPTS: "-Xms256m -Xmx512m"
+
+istio:
+  enabled: true
+  gateway: banking-gateway
+  hosts:
+    - config-server.local
