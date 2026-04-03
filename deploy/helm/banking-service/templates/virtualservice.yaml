@@ -1,1 +1,35 @@
-
+{{- if .Values.istio.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ include "banking-service.fullname" . }}-virtualservice
+  namespace: {{ .Values.namespace }}
+spec:
+  hosts:
+    {{- range .Values.istio.hosts }}
+    - {{ . | quote }}
+    {{- end }}
+  gateways:
+    - {{ .Values.istio.gateway }}
+  http:
+    - name: route1
+      match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: {{ include "banking-service.fullname" . }}
+            port:
+              number: {{ .Values.servicePort }}
+          weight: {{ .Values.istio.stableWeight }}
+    - name: route2
+      match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: {{ include "banking-service.fullname" . }}
+            port:
+              number: {{ .Values.servicePort }}
+          weight: {{ .Values.istio.stableWeight }}
+{{- end }}
