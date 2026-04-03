@@ -1,4 +1,4 @@
-namespace: pte
+namespace: ibm-pte
 
 image:
   repository: vikramtek/internet-banking-api-gateway
