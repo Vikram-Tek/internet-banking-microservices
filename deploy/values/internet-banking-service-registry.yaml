@@ -1,1 +1,23 @@
+namespace: ibm-pte
 
+image:
+  repository: vikramtek/internet-banking-service-registry
+  tag: latest
+
+replicaCount: 1
+containerPort: 8081
+servicePort: 8081
+
+app:
+  serviceName: internet-banking-service-registry
+  version: v1
+
+env:
+  SPRING_PROFILES_ACTIVE: pte
+  JAVA_OPTS: "-Xms256m -Xmx512m"
+
+istio:
+  enabled: true
+  gateway: banking-gateway
+  hosts:
+    - service-registry.local
