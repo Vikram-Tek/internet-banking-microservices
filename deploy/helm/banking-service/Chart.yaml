@@ -1,1 +1,6 @@
-
+apiVersion: v2
+name: banking-service
+description: Reusable Helm chart for internet-banking microservices
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
