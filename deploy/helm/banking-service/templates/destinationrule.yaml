@@ -1,1 +1,12 @@
-
+{{- if .Values.istio.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: {{ include "banking-service.fullname" . }}-destinationrule
+  namespace: {{ .Values.namespace }}
+spec:
+  host: {{ include "banking-service.fullname" . }}
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+{{- end }}
