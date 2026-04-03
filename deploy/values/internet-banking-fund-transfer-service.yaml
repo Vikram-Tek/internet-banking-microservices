@@ -1,1 +1,23 @@
+namespace: ibm-pte
 
+image:
+  repository: vikramtek/internet-banking-fund-transfer-service
+  tag: latest
+
+replicaCount: 2
+containerPort: 8084
+servicePort: 8084
+
+app:
+  serviceName: internet-banking-fund-transfer-service
+  version: v1
+
+env:
+  SPRING_PROFILES_ACTIVE: pte
+  JAVA_OPTS: "-Xms256m -Xmx512m"
+
+istio:
+  enabled: true
+  gateway: banking-gateway
+  hosts:
+    - fund-transfer.local
