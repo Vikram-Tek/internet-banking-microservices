@@ -1,1 +1,23 @@
+namespace: ibm-pte
 
+image:
+  repository: vikramtek/internet-banking-utility-payment-service
+  tag: latest
+
+replicaCount: 2
+containerPort: 8085
+servicePort: 8085
+
+app:
+  serviceName: internet-banking-utility-payment-service
+  version: v1
+
+env:
+  SPRING_PROFILES_ACTIVE: pte
+  JAVA_OPTS: "-Xms256m -Xmx512m"
+
+istio:
+  enabled: true
+  gateway: banking-gateway
+  hosts:
+    - utility-payment.local
