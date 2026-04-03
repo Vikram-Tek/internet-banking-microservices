@@ -1,1 +1,23 @@
+namespace: pte
 
+image:
+  repository: vikramtek/internet-banking-api-gateway
+  tag: latest
+
+replicaCount: 2
+containerPort: 8082
+servicePort: 8082
+
+app:
+  serviceName: internet-banking-api-gateway
+  version: v1
+
+env:
+  SPRING_PROFILES_ACTIVE: pte
+  JAVA_OPTS: "-Xms256m -Xmx512m"
+
+istio:
+  enabled: true
+  gateway: banking-gateway
+  hosts:
+    - api-gateway.local
