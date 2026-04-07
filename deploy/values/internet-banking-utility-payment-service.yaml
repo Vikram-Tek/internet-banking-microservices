@@ -1,8 +1,8 @@
 namespace: ibm-pte
 
 image:
-  repository: vikramtek/internet-banking-utility-payment-service
-  tag: latest
+  repository: vikramtek/harness-ibm-ups
+  tag: 4
 
 replicaCount: 2
 containerPort: 8085
